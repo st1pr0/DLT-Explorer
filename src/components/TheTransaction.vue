@@ -70,6 +70,9 @@ export default {
 <form  @submit.prevent="getTransactionInfo($event)">
       <div>
           <input  type="text" id="transactionHash" v-model= "transactionHash" >
+            <button type="submit" >
+          Submit
+        </button>
         </div>
     <div class="container">
         <h2>Status: <span class="status">{{status}}</span></h2>
@@ -77,9 +80,6 @@ export default {
         <h2>From: <a href="#">{{from}}</a></h2>
         <h2>To: <a href="#">{{to}}</a></h2>
         <h2>Value: {{value}}</h2>
-          <button type="submit" >
-          Submit
-        </button>
     </div>
    </form>
 </template>
