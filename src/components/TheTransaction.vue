@@ -39,6 +39,8 @@ export default {
         from: "",
         to: "",
         value: "",
+        keys: "",
+        values: "",
     };
   }, 
     methods: {
@@ -53,7 +55,11 @@ export default {
             this.blockNumber = response.data.result.blockNumber,
             this.from = response.data.result.from,
             this.to = response.data.result.to,
-            this.value = response.data.result.value
+            this.value = response.data.result.value,
+            this.keys = Object.keys(response.data.result),
+            console.log(this.keys),
+            this.values = Object.values(response.data.result)
+            
         })
             // .then(this.blockNumber = response.data.result.blockNumber)
             // .then(console.log(response.data.result.blockNumber))
@@ -79,7 +85,7 @@ export default {
             </button>
     </div>
 </form>
-<form  @submit.prevent="getTransactionInfo($event)">
+
     <div class="mb-6">
         <h2>Status: <span class="status">{{status}}</span></h2>
         <h2>Block number: <a href="#">{{blockNumber}}</a></h2>
@@ -87,7 +93,32 @@ export default {
         <h2>To: <a href="#">{{to}}</a></h2>
         <h2>Value: {{value}}</h2>
     </div>
-   </form>
+ <div class="px-4 sm:px-6 lg:px-8">
+    <div class="sm:flex sm:items-center">
+    </div>
+    <div class="mt-8 flex flex-col">
+      <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
+        <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+          <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
+            <table class="min-w-full divide-y divide-gray-300">
+              <thead class="bg-gray-50">
+              </thead>
+              <tbody class="divide-y divide-gray-200 bg-white">
+                <tr v-for="key in keys" :key="key" :value="key" class="divide-x divide-gray-200">
+                  <td  class="whitespace-nowrap py-4 pl-4 pr-4 text-sm font-medium text-gray-900 sm:pl-6">{{ key }}</td>
+                  <!-- <td v-for="value in values" :key="value" :value="value" class="whitespace-nowrap p-4 text-sm text-gray-500">{{ value }}</td> -->
+                  <td class="divide-x divide-gray-300"></td>
+                </tr>
+                <tr v-for="value in values" :key="value" :value="value" class="divide-x divide-gray-200">
+                  <td  class="whitespace-nowrap p-4 text-sm text-gray-500">{{ value }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 
