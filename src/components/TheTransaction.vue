@@ -44,20 +44,19 @@ export default {
 
             const apiKey = `9MJFGVBYYTCB5JF4UZY7HF1XB9BEZYFYSX`;
             const transactionDataURL = `https://api.snowtrace.io/api?module=proxy&action=eth_getTransactionByHash&txhash=${this.searchingVariable}&apikey=${apiKey}`;
-            // const blockRewardDataURL = `https://api.snowtrace.io/api?module=block&action=getblockreward&blockno=${this.searchingVariable}&apikey=${apiKey}`;
+            const blockRewardDataURL = `https://api.snowtrace.io/api?module=block&action=getblockreward&blockno=${this.searchingVariable}&apikey=${apiKey}`;
             const accountBalanceData = `https://api.snowtrace.io/api?module=account&action=balance&address=${this.searchingVariable}&tag=latest&apikey=${apiKey}`;
-            const blockRewardDataURL = `https://api.snowtrace.io/api?module=block&action=getblockreward&blockno=14561298&apikey=9MJFGVBYYTCB5JF4UZY7HF1XB9BEZYFYSX`;
-
+            
             this.searchingVariable = event.target.searchingVariable.value;
             let trueURL = "";
             if(this.searchingVariable.length == 66) {
               trueURL = transactionDataURL;
             }
             if(this.searchingVariable.length == 42){
-              trueURL = blockRewardDataURL;
+              trueURL = accountBalanceData;
             }
             if(this.searchingVariable.length == 8){
-              trueURL = accountBalanceData;
+              trueURL = blockRewardDataURL;
             }
             console.log(trueURL);
           await axios

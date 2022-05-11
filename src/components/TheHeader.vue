@@ -1,6 +1,6 @@
 <template>
     <header>
-        <h1>DLT Explorer</h1>
+        <h1><a href="http://localhost:8080/">DLT Explorer</a></h1>
         <p>by Quanterall</p>
         </header>
 </template>
