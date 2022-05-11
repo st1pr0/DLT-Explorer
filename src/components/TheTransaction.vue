@@ -41,6 +41,7 @@ export default {
         value: "",
         keys: "",
         values: "",
+        index: "",
     };
   }, 
     methods: {
@@ -58,8 +59,9 @@ export default {
             this.value = response.data.result.value,
             this.keys = Object.keys(response.data.result),
             console.log(this.keys),
-            this.values = Object.values(response.data.result)
-            
+            this.values = Object.values(response.data.result),
+            this.index = this.keys.length,
+            console.log(this.index)
         })
             // .then(this.blockNumber = response.data.result.blockNumber)
             // .then(console.log(response.data.result.blockNumber))
@@ -104,13 +106,9 @@ export default {
               <thead class="bg-gray-50">
               </thead>
               <tbody class="divide-y divide-gray-200 bg-white">
-                <tr v-for="key in keys" :key="key" :value="key" class="divide-x divide-gray-200">
+                <tr v-for="(key, i) in keys" :key="i" :value="key" class="divide-x divide-gray-200">
                   <td  class="whitespace-nowrap py-4 pl-4 pr-4 text-sm font-medium text-gray-900 sm:pl-6">{{ key }}</td>
-                  <!-- <td v-for="value in values" :key="value" :value="value" class="whitespace-nowrap p-4 text-sm text-gray-500">{{ value }}</td> -->
-                  <td class="divide-x divide-gray-300"></td>
-                </tr>
-                <tr v-for="value in values" :key="value" :value="value" class="divide-x divide-gray-200">
-                  <td  class="whitespace-nowrap p-4 text-sm text-gray-500">{{ value }}</td>
+                  <td  class="whitespace-nowrap p-4 text-sm text-gray-500">{{ values[i] }}</td>
                 </tr>
               </tbody>
             </table>
