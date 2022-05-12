@@ -1,3 +1,6 @@
+echo "Updating dependencies"
+npm install
+
 echo "Downgrading Node version to 16"
 nvm use 16
 
