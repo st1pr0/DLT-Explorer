@@ -36,34 +36,42 @@ export default {
         searchingVariable: "",
         keys: "",
         values: "",
+        
     };
   }, 
     methods: {
       
         async getTransactionInfo(event) {
 
-            const apiKey = `9MJFGVBYYTCB5JF4UZY7HF1XB9BEZYFYSX`;
-            const transactionDataURL = `https://api.snowtrace.io/api?module=proxy&action=eth_getTransactionByHash&txhash=${this.searchingVariable}&apikey=${apiKey}`;
-            const blockRewardDataURL = `https://api.snowtrace.io/api?module=block&action=getblockreward&blockno=${this.searchingVariable}&apikey=${apiKey}`;
-            const accountBalanceData = `https://api.snowtrace.io/api?module=account&action=balance&address=${this.searchingVariable}&tag=latest&apikey=${apiKey}`;
-            
             this.searchingVariable = event.target.searchingVariable.value;
+            const apiKey= `9MJFGVBYYTCB5JF4UZY7HF1XB9BEZYFYSX`;
+            const transactionDataURL= `https://api.snowtrace.io/api?module=proxy&action=eth_getTransactionByHash&txhash=${this.searchingVariable}&apikey=${apiKey}`;
+            const blockRewardDataURL= `https://api.snowtrace.io/api?module=block&action=getblockreward&blockno=${this.searchingVariable}&apikey=${apiKey}`;
+            const accountBalanceData= `https://api.snowtrace.io/api?module=account&action=balance&address=${this.searchingVariable}&tag=latest&apikey=${apiKey}`;
+
             let trueURL = "";
-            if(this.searchingVariable.length == 66) {
+            if(this.searchingVariable.length === 66) {
               trueURL = transactionDataURL;
             }
-            if(this.searchingVariable.length == 42){
+            else if(this.searchingVariable.length === 42){
               trueURL = accountBalanceData;
             }
-            if(this.searchingVariable.length == 8){
+            else if(this.searchingVariable.length === 8){
               trueURL = blockRewardDataURL;
             }
-            console.log(trueURL);
           await axios
             .get(trueURL)
             .then((response) => {
             this.keys = Object.keys(response.data.result),
             this.values = Object.values(response.data.result)
+            if (this.searchingVariable.length === 66){
+              this.values[12] = parseInt(this.values[12].toString(16), 16);
+              
+            }else if(this.searchingVariable.length === 42){
+              console.log(4);
+            }else if(this.searchingVariable === 8){
+              console.log(5);
+            }
         })
 
             .catch((error) => console.log(error));
