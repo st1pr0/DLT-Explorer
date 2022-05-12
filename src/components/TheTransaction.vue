@@ -42,7 +42,8 @@ export default {
     methods: {
       
         async getTransactionInfo(event) {
-
+            this.keys = [];
+            this.values = [];
             this.searchingVariable = event.target.searchingVariable.value;
             const apiKey= `9MJFGVBYYTCB5JF4UZY7HF1XB9BEZYFYSX`;
             const transactionDataURL= `https://api.snowtrace.io/api?module=proxy&action=eth_getTransactionByHash&txhash=${this.searchingVariable}&apikey=${apiKey}`;
@@ -62,15 +63,24 @@ export default {
           await axios
             .get(trueURL)
             .then((response) => {
-            this.keys = Object.keys(response.data.result),
-            this.values = Object.values(response.data.result)
+            
             if (this.searchingVariable.length === 66){
+
+              this.keys = Object.keys(response.data.result);
+              this.values = Object.values(response.data.result);
               this.values[12] = parseInt(this.values[12].toString(16), 16);
-              
+              this.values[12] /= (10**18);
+
             }else if(this.searchingVariable.length === 42){
-              console.log(4);
-            }else if(this.searchingVariable === 8){
-              console.log(5);
+
+              this.keys[0] = `Balance`;
+              this.values[0] = (Object.values(response.data.result)).join("") / (10**18);
+              console.log(this.keys[0], this.values[0]);
+
+            }else if(this.searchingVariable.length === 8){
+
+              this.keys = Object.keys(response.data.result);
+              this.values = Object.values(response.data.result);
             }
         })
 
